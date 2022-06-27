@@ -253,6 +253,9 @@ window.addEventListener("deviceorientation",function(event) {
         potIzq=-velvel
         
     }
+    
+    potIzq = MATH.round(potIzq)
+    potDer = MATH.round(potDer)
 
     pote.innerHTML = "Potencia: "+potIzq+", "+potDer
 
