@@ -172,6 +172,9 @@ setInterval(() => {
 
 window.addEventListener("deviceorientation",function(event) {
     var coefAvance
+
+    var potIzq=0, potDer=0, giro=0, velGiro = 40    , velvel=60
+
     alpha = Math.round(event.alpha);
     beta = Math.round(event.beta);
     gamma = Math.round(event.gamma);
@@ -193,16 +196,20 @@ window.addEventListener("deviceorientation",function(event) {
         else coefAvance+=15  
     } 
     
-    if(coefGiro>35) coefGiro=35
-    if(coefGiro<-35) coefGiro=-35
+    if(coefGiro>50) coefGiro=50
+    if(coefGiro<-50) coefGiro=-50
     
     if(coefAvance>30) coefAvance=30
     if(coefAvance<-30) coefAvance=-30
 
     coefi.innerHTML = "Coeficiente: "+coefGiro+", "+coefAvance
 
+    velGiro += coefGiro*(160/50)
+    velvel  += coefAvance*(40/30)
 
-    var potIzq=0, potDer=0, giro=0, velGiro = 50
+
+
+    
 
     // potDer = VelocidadValue()
     // potIzq = VelocidadValue()
@@ -217,6 +224,8 @@ window.addEventListener("deviceorientation",function(event) {
         potIzq = giro
     }
 
+    vel=vel*velvel/100
+
     if(vel<0){
         potDer*=-1
         potIzq*=-1
@@ -225,23 +234,23 @@ window.addEventListener("deviceorientation",function(event) {
     potDer += vel
     potIzq += vel
 
-    if(potDer>100){
-        potIzq-=potDer-100
-        potDer=100
+    if(potDer>velvel){
+        potIzq-=potDer-velvel
+        potDer=velvel
         console.log("1")
     }
-    if(potIzq>100){
-        potDer-=potIzq-100
-        potIzq=100
+    if(potIzq>velvel){
+        potDer-=potIzq-velvel
+        potIzq=velvel
         console.log("2")
     }
-    if(potDer<-100){
-        potIzq= potIzq-(potDer+100)
-        potDer  =-100
+    if(potDer<-velvel){
+        potIzq= potIzq-(potDer+velvel)
+        potDer  =-velvel
     }
-    if(potIzq<-100){
-        potDer= potDer-(potIzq+100)
-        potIzq=-100
+    if(potIzq<-velvel){
+        potDer= potDer-(potIzq+velvel)
+        potIzq=-velvel
         
     }
 
